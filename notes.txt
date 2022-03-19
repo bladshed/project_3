@@ -10,3 +10,12 @@ Initialize project
 - yarn add db-migrate
 - yarn add db-migrate-mysql
 - yarn add mysql
+
+DESIGN DATABASE
+https://sqldbm.com/Home/
+
+chmod +x ./install-packages.sh
+chmod +x ./db-migrate.sh
+
+./db-migrate.sh create <table_name>
+./db-migrate.sh up
