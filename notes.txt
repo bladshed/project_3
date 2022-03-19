@@ -10,6 +10,8 @@ Initialize project
 - yarn add db-migrate
 - yarn add db-migrate-mysql
 - yarn add mysql
+- yarn add knex
+- yarn add bookshelf
 
 DESIGN DATABASE
 https://sqldbm.com/Home/
