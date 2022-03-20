@@ -10,13 +10,20 @@ const Sneaker = bookshelf.model('Sneaker',{
     // name of the relationship is the function name (below)
     // keep the name of the relationship to be the model name lowercase
     // it is singular because of belongsTo
-    cutType()  {
+    cutType() {
         // eqv. one product belongs to one cateogry
         return this.belongsTo('CutType')
+    },
+    brand() {
+        // eqv. one product belongs to one cateogry
+        return this.belongsTo('Brand')
+    },
+    tags() {
+        return this.belongsToMany('Tag');
+    },
+    colors() {
+        return this.belongsToMany('Color');
     }
-    // tags() {
-    //     return this.belongsToMany('Tag');
-    // }
 })
 
 // make sure the name of the model
@@ -33,4 +40,34 @@ const CutType = bookshelf.model('CutType', {
     },
 })
 
-module.exports = { Sneaker, CutType };
+// make sure the name of the model
+// (1st parameter of the book bookshelf.model call) is the singular
+// form of the table name and the first alphabet is upper case
+const Brand = bookshelf.model('Brand', {
+    tableName:'brands', // this model refers to the categories table in the database
+                           // table name is plural
+    // the relationship name is the lower case of the 
+    // model name, plural (because it's hasMany relationship)
+    sneakers() {
+        // the arg of hasMany is the Model name
+        return this.hasMany('Sneaker');
+    },
+})
+
+// first arg is name of the model, so the model's name is Tag
+const Tag = bookshelf.model("Tag", {
+    'tableName':'tags',
+    sneakers() {
+        return this.belongsToMany('Sneaker');
+    }
+})
+
+// first arg is name of the model, so the model's name is Tag
+const Color = bookshelf.model("Color", {
+    'tableName':'colors',
+    sneakers() {
+        return this.belongsToMany('Sneaker');
+    }
+})
+
+module.exports = { Sneaker, CutType, Brand, Tag, Color };

@@ -28,7 +28,7 @@ const bootstrapField = function (name, object) {
 };
 
 // create one function for each form
-const createSneakerForm = function(cutTypes){
+const createSneakerForm = function(cutTypes, brands, colors, tags){
      // the first arg to forms.create() is an
     // object that contains the definition of the form.
     // each property in the object defines one field in the form
@@ -38,14 +38,12 @@ const createSneakerForm = function(cutTypes){
             'required': true,
             'errorAfterField': true            
         }),
-        "brand":fields.string({
+        "brand_id":fields.string({
+            'label':'Brand',
             'required': true,
-            'errorAfterField': true            
-        }),
-        "price":fields.string({
-            'required':true,
             'errorAfterField':true,
-            'validators':[validators.integer(), validators.min(0)]
+            'widget': widgets.select(), // use a dropdown select for this form
+            'choices':brands
         }),
         "cut_type_id":fields.string({
             'label':'Cut Type',
@@ -53,6 +51,23 @@ const createSneakerForm = function(cutTypes){
             'errorAfterField':true,
             'widget': widgets.select(), // use a dropdown select for this form
             'choices':cutTypes
+        }),
+        "price":fields.string({
+            'required':true,
+            'errorAfterField':true,
+            'validators':[validators.integer(), validators.min(0)]
+        }),
+        "colors": fields.string({
+            'required': true,
+            'errorAfterField':true,
+            'widget': widgets.multipleSelect(),
+            'choices':colors
+        }),
+        "tags": fields.string({
+            'required': true,
+            'errorAfterField':true,
+            'widget': widgets.multipleSelect(),
+            'choices':tags
         }),
         "image_url": fields.string({
             'widget': widgets.hidden() // invisible

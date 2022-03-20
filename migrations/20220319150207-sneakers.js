@@ -37,11 +37,6 @@ exports.up = function(db) {
       length:100,
       notNull:true
     },
-    'brand':{
-      type:'string',
-      length:100,
-      notNull:true
-    },
     'image_url':{
       type:'string',
       length:255,
@@ -55,7 +50,7 @@ exports.up = function(db) {
 };
 
 exports.down = function(db) {
-  return db.dropTable("sneakers");
+  return db.dropTable('sneakers');
 };
 
 exports._meta = {

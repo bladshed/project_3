@@ -1,4 +1,4 @@
-const { Sneaker, CutType } = require('../models')
+const { Sneaker, CutType, Brand, Tag } = require('../models')
 
 async function getAllSneakers() {
     // when using the model as a class, we are referring
@@ -10,8 +10,8 @@ async function getAllSneakers() {
 async function createSneaker(sneakerData) {
     const newSneaker = new Sneaker();
     newSneaker.set('name', sneakerData.name);
-    newSneaker.set('brand', sneakerData.brand);
     newSneaker.set('price', sneakerData.price);
+    newSneaker.set('brand_id', sneakerData.brand_id);
     newSneaker.set('cut_type_id', sneakerData.cut_type_id);
 
     await newSneaker.save();
@@ -22,7 +22,8 @@ async function getSneakerById(sneakerId) {
     const sneaker = await Sneaker.where({
         'id': sneakerId
     }).fetch({
-        'require':false
+        'require':false,
+        withRelated:['tags','colors'] // fetch all the tags associated with the product
     });
     return sneaker;
 }
@@ -34,4 +35,25 @@ async function getAllCutTypes() {
     return allCutTypes;
 }
 
-module.exports = { getAllSneakers, createSneaker, getSneakerById, getAllCutTypes}
+async function getAllBrands() {
+    const allBrands = await Brand.fetchAll().map(function(brand){
+        return [ brand.get('id'), brand.get('name')]
+    });
+    return allBrands;
+}
+
+async function getAllTags() {
+    const allTags = await Tag.fetchAll().map(function(tag){
+        return [ tag.get('id'), tag.get('name')]
+    })
+    return allTags;
+}
+
+async function getAllColors() {
+    const allColors = await Tag.fetchAll().map(function(color){
+        return [ color.get('id'), color.get('name')]
+    })
+    return allColors;
+}
+
+module.exports = { getAllSneakers, createSneaker, getSneakerById, getAllCutTypes, getAllBrands, getAllTags, getAllColors }
