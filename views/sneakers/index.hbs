@@ -8,6 +8,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Cut</th>
             <th>Image</th>
             <th>Actions</th>
         </tr>
@@ -23,6 +24,9 @@
             </td>
             <td>
                 {{this.price}}
+            </td>
+            <td>
+                {{this.cutType.name}}
             </td>
             <td>
                 {{#if this.image_url}}

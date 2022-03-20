@@ -1,4 +1,4 @@
-const { Sneaker } = require('../models')
+const { Sneaker, CutType } = require('../models')
 
 async function getAllSneakers() {
     // when using the model as a class, we are referring
@@ -12,6 +12,7 @@ async function createSneaker(sneakerData) {
     newSneaker.set('name', sneakerData.name);
     newSneaker.set('brand', sneakerData.brand);
     newSneaker.set('price', sneakerData.price);
+    newSneaker.set('cut_type_id', sneakerData.cut_type_id);
 
     await newSneaker.save();
     return newSneaker;
@@ -26,4 +27,11 @@ async function getSneakerById(sneakerId) {
     return sneaker;
 }
 
-module.exports = { getAllSneakers, createSneaker, getSneakerById}
+async function getAllCutTypes() {
+    const allCutTypes = await CutType.fetchAll().map(function(cutType){
+        return [ cutType.get('id'), cutType.get('name')]
+    });
+    return allCutTypes;
+}
+
+module.exports = { getAllSneakers, createSneaker, getSneakerById, getAllCutTypes}

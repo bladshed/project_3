@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // import in the model
-const { Sneaker } = require('../models');
+const { Sneaker, CutType } = require('../models');
 
 // import in creatProductForm and bootstrapField
 const { bootstrapField, createSneakerForm } = require('../forms');
@@ -18,7 +18,15 @@ const sneakerDataLayer = require('../dal/sneakers');
 router.get('/', async function (req, res) {
 
     // get all the sneakers
-    const sneakers = await sneakerDataLayer.getAllSneakers();
+    //  const sneakers = await sneakerDataLayer.getAllSneakers();
+
+    let query = Sneaker.collection(); // create a query builder
+    // write a query in increments
+    // eqv. "SELECT * FROM products"
+
+    let sneakers = await query.fetch({
+        withRelated: ['cutType']
+    })
 
     res.render('sneakers/index', {
         'sneakers': sneakers.toJSON()
@@ -46,7 +54,10 @@ router.get('/create', async function (req, res) {
        ]
    */
 
-    const sneakerForm = createSneakerForm();
+    // get all cut types
+    const allCutTypes = await sneakerDataLayer.getAllCutTypes();
+
+    const sneakerForm = createSneakerForm(allCutTypes);
 
     res.render('sneakers/create', {
         // convert the form object to HTML
@@ -62,8 +73,11 @@ router.get('/create', async function (req, res) {
 router.post('/create', async function (req, res) {
     // goal: create a new product based on the input in the forms
 
+    // get all cut types
+    const allCutTypes = await sneakerDataLayer.getAllCutTypes();
+
     // create an instance of the product form
-    const sneakerForm = createSneakerForm();
+    const sneakerForm = createSneakerForm(allCutTypes);
     sneakerForm.handle(req, {
         // the success function will be called
         // if the form's data as provided by the user
@@ -94,38 +108,45 @@ router.post('/create', async function (req, res) {
     })
 })
 
-router.get('/:sneaker_id/update', async function(req,res){
+router.get('/:sneaker_id/update', async function (req, res) {
 
     const sneakerId = req.params.sneaker_id;
-   // fetch one row from the table
-   // using the bookshelf orm
-   const sneaker = await sneakerDataLayer.getSneakerById(sneakerId);
+    // fetch one row from the table
+    // using the bookshelf orm
+    const sneaker = await sneakerDataLayer.getSneakerById(sneakerId);
 
-   // create an instance of product form
-   const sneakerForm = createSneakerForm();
-   // reminder: to retrieve the value field 
-   // from a model instance, use .get()
-   sneakerForm.fields.name.value = sneaker.get('name'); // <== retrieve the sneaker name and assign it to the form
-   sneakerForm.fields.brand.value = sneaker.get('brand');
-   sneakerForm.fields.price.value = sneaker.get('price');
-   sneakerForm.fields.image_url.value = sneaker.get('image_url');
+    // get all cut types
+    const allCutTypes = await sneakerDataLayer.getAllCutTypes();
 
-   res.render('sneakers/update',{
-       'form': sneakerForm.toHTML(bootstrapField),
-       'sneaker': sneaker.toJSON()
-   })
+    // create an instance of product form
+    const sneakerForm = createSneakerForm(allCutTypes);
+    // reminder: to retrieve the value field 
+    // from a model instance, use .get()
+    sneakerForm.fields.name.value = sneaker.get('name'); // <== retrieve the sneaker name and assign it to the form
+    sneakerForm.fields.brand.value = sneaker.get('brand');
+    sneakerForm.fields.price.value = sneaker.get('price');
+    sneakerForm.fields.cut_type_id.value = sneaker.get('cut_type_id');
+    sneakerForm.fields.image_url.value = sneaker.get('image_url');
+
+    res.render('sneakers/update', {
+        'form': sneakerForm.toHTML(bootstrapField),
+        'sneaker': sneaker.toJSON()
+    })
 })
 
-router.post('/:sneaker_id/update', async function(req,res){
+router.post('/:sneaker_id/update', async function (req, res) {
     // fetch the instance of the product that we wish to update
     const sneaker = await sneakerDataLayer.getSneakerById(req.params.sneaker_id);
 
+    // get all cut types
+    const allCutTypes = await sneakerDataLayer.getAllCutTypes();
+
     // create the product form
-    const sneakerForm = createSneakerForm();
+    const sneakerForm = createSneakerForm(allCutTypes);
 
     // pass the request into the product form
     sneakerForm.handle(req, {
-        'success':async function(form) {
+        'success': async function (form) {
             // executes if the form data is all valid
             // product.set('name', form.data.name);
             // product.set('cost', form.data.cost);
@@ -144,21 +165,21 @@ router.post('/:sneaker_id/update', async function(req,res){
 
             res.redirect('/sneakers');
         },
-        'error':function() {
+        'error': function () {
             // executes if the form data contains
             // invalid entries
         }
     })
 })
 
-router.get('/:sneaker_id/delete', async function(req,res){
+router.get('/:sneaker_id/delete', async function (req, res) {
     const sneaker = await sneakerDataLayer.getSneakerById(req.params.sneaker_id);
-    res.render('sneakers/delete',{
+    res.render('sneakers/delete', {
         'sneaker': sneaker.toJSON()
     })
 })
 
-router.post('/:sneaker_id/delete', async function(req,res){
+router.post('/:sneaker_id/delete', async function (req, res) {
     const sneaker = await sneakerDataLayer.getSneakerById(req.params.sneaker_id);
     await sneaker.destroy(); // same as "DELETE FROM sneakers where id = ?"
     res.redirect('/sneakers');
