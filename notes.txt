@@ -12,6 +12,7 @@ Initialize project
 - yarn add mysql
 - yarn add knex
 - yarn add bookshelf
+- yarn add forms
 
 DESIGN DATABASE
 https://sqldbm.com/Home/

@@ -19,4 +19,4 @@ const Sneaker = bookshelf.model('Sneaker',{
     // }
 })
 
-module.exports = { Product };
+module.exports = { Sneaker };

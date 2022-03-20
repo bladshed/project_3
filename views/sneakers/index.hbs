@@ -1,0 +1,36 @@
+{{#extends 'base'}}
+
+{{#block "content"}}
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each sneakers}}
+        <tr>
+            <td>
+                {{this.id}}
+            </td>
+            <td>
+                {{this.name}}
+            </td>
+            <td>
+                {{this.price}}
+            </td>
+            <td>
+                {{#if this.image_url}}
+                    <img src="{{this.image_url}}" class="img-fluid"/>
+                {{/if}}
+            </td>
+        {{/each}}
+        </tr>
+    </tbody>
+</table>
+{{/block}}
+
+{{/extends}}
