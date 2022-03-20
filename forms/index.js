@@ -28,7 +28,7 @@ const bootstrapField = function (name, object) {
 };
 
 // create one function for each form
-const createProductForm = function(categories, tags){
+const createSneakerForm = function(){
      // the first arg to forms.create() is an
     // object that contains the definition of the form.
     // each property in the object defines one field in the form
@@ -38,27 +38,14 @@ const createProductForm = function(categories, tags){
             'required': true,
             'errorAfterField': true            
         }),
-        "cost":fields.string({
+        "brand":fields.string({
+            'required': true,
+            'errorAfterField': true            
+        }),
+        "price":fields.string({
             'required':true,
             'errorAfterField':true,
             'validators':[validators.integer(), validators.min(0)]
-        }),
-        "description":fields.string({
-            'required': true,
-            'errorAfterField':true
-        }),
-        "category_id":fields.string({
-            'label':'Category',
-            'required': true,
-            'errorAfterField':true,
-            'widget': widgets.select(), // use a dropdown select for this form
-            'choices':categories
-        }),
-        "tags": fields.string({
-            'required': true,
-            'errorAfterField':true,
-            'widget': widgets.multipleSelect(),
-            'choices':tags
         }),
         "image_url": fields.string({
             'widget': widgets.hidden() // invisible
@@ -66,73 +53,4 @@ const createProductForm = function(categories, tags){
     })
 }
 
-const createUserForm = function() {
-    return forms.create({
-        'username': fields.string({
-            required: true,
-            errorAfterField: true
-        }),
-        'email': fields.string({
-            required: true,
-            errorAfterField: true
-        }),
-        'password': fields.string({
-            required: true,
-            errorAfterField: true,
-            widget: widgets.password()
-        }),
-        'confirm_password': fields.string({
-            required: true,
-            errorAfterField: true,
-            widget: widgets.password(),
-            validators:[ validators.matchField('password')]  // the content of the password field
-                                                             // must match the cotent of the confirm_password field
-        })
-    })
-}
-
-const createLoginForm = function() {
-    return forms.create({
-        'email': fields.string({
-            required: true,
-            errorAfterField: true
-        }),
-        'password': fields.string({
-            required: true,
-            errorAfterField: true,
-            widget: widgets.password()
-        })
-    })
-}
-
-
-const createSearchForm = function(allCategories, allTags) {
-    return forms.create({
-        'name': fields.string({
-            required: false 
-        }),
-        'min_cost':fields.string({
-            required: false,
-            errorAfterField: true,
-            validators:[validators.integer(), validators.min(0)]
-        }),
-        'max_cost':fields.string({
-            required: false,
-            errorAfterField: true,
-            validators:[validators.integer(), validators.min(0)]
-        }),
-        'category_id':fields.string({
-            label:'Category',
-            required: false,
-            widget: widgets.select(),
-            choices: allCategories
-        }),
-        'tags': fields.string({
-            required: false,
-            widget: widgets.multipleSelect(),
-            choices: allTags
-        })
-    })
-}
-
-module.exports = {bootstrapField, createProductForm, createUserForm, createLoginForm, createSearchForm};
+module.exports = {bootstrapField, createSneakerForm};

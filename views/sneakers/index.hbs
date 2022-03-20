@@ -1,6 +1,7 @@
 {{#extends 'base'}}
 
 {{#block "content"}}
+<a href="/sneakers/create" class="btn btn-primary btn-sm mt-3">Create</a>
 <table class="table">
     <thead>
         <tr>
@@ -8,6 +9,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>Image</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -24,8 +26,14 @@
             </td>
             <td>
                 {{#if this.image_url}}
-                    <img src="{{this.image_url}}" class="img-fluid"/>
+                    <img src="{{this.image_url}}" class="img-fluid" width="100" height="100"/>
                 {{/if}}
+            </td>
+            <td>
+                <a href="/sneakers/{{this.id}}/update" 
+                    class="btn btn-primary btn-sm">Edit</a>
+                <a href="/sneakers/{{this.id}}/delete"
+                    class="btn btn-danger btn-sm">Delete</a>
             </td>
         {{/each}}
         </tr>

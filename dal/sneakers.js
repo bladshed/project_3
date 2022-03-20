@@ -7,4 +7,23 @@ async function getAllSneakers() {
     return sneakers;
 }
 
-module.exports = { getAllSneakers}
+async function createSneaker(sneakerData) {
+    const newSneaker = new Sneaker();
+    newSneaker.set('name', sneakerData.name);
+    newSneaker.set('brand', sneakerData.brand);
+    newSneaker.set('price', sneakerData.price);
+
+    await newSneaker.save();
+    return newSneaker;
+}
+
+async function getSneakerById(sneakerId) {
+    const sneaker = await Sneaker.where({
+        'id': sneakerId
+    }).fetch({
+        'require':false
+    });
+    return sneaker;
+}
+
+module.exports = { getAllSneakers, createSneaker, getSneakerById}
