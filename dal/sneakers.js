@@ -1,4 +1,4 @@
-const { Sneaker, CutType, Brand, Tag } = require('../models')
+const { Sneaker, CutType, Brand, Tag, Color } = require('../models')
 
 async function getAllSneakers() {
     // when using the model as a class, we are referring
@@ -50,7 +50,7 @@ async function getAllTags() {
 }
 
 async function getAllColors() {
-    const allColors = await Tag.fetchAll().map(function(color){
+    const allColors = await Color.fetchAll().map(function(color){
         return [ color.get('id'), color.get('name')]
     })
     return allColors;

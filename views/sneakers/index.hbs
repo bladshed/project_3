@@ -10,6 +10,8 @@
             <th>Name</th>
             <th>Price</th>
             <th>Cut</th>
+            <th>Colors</th>
+            <th>Tags</th>
             <th>Image</th>
             <th>Actions</th>
         </tr>
@@ -31,6 +33,16 @@
             </td>
             <td>
                 {{this.cutType.name}}
+            </td>
+            <td>
+                {{#each this.colors}}
+                    <span class="badge bg-success">{{this.name}}</span>
+                {{/each}}
+            </td>
+            <td>
+                {{#each this.tags}}
+                    <span class="badge bg-success">{{this.name}}</span>
+                {{/each}}
             </td>
             <td>
                 {{#if this.image_url}}

@@ -48,6 +48,28 @@ app.use(function(req,res,next){
            // is no more middlewares,pass to the route.
 })
 
+// configure sessions 
+app.use(session({
+  'store': new FileStore(),  // a sessions store determines how the session data is saved
+                             // if using FileStore, we are saving it to a file. 
+  'secret':'keyboard cat',   // used for encrpyting session ids 
+  'resave': false,
+  'saveUninitialized':true   // if a request arrives with no session, create a new session                          
+}))
+
+// setup the flash message
+// add the flash function to req (aka the request) using the flash middleware
+app.use(flash());
+
+// register the Flash middleware
+app.use(function(req,res,next){
+  // req.flash - retriving the flash messages from the session file
+  // and deleting it at the same time
+  res.locals.success_messages = req.flash('success_messages');
+  res.locals.error_messages = req.flash('error_messages');
+  next();
+})
+
 // import in routes
 const landingRoutes = require('./routes/landing');
 const sneakerRoutes = require('./routes/sneakers');

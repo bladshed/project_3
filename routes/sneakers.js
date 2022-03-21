@@ -139,6 +139,12 @@ router.get('/:sneaker_id/update', async function (req, res) {
     // set the existing tags
     sneakerForm.fields.tags.value = selectedTags;
 
+    // get only the ids from the colors that belongs to the sneaker
+    const selectedColors = await sneaker.related('colors').pluck('id');
+
+    // set the existing colors
+    sneakerForm.fields.colors.value = selectedColors;
+
     res.render('sneakers/update', {
         'form': sneakerForm.toHTML(bootstrapField),
         'sneaker': sneaker.toJSON()
