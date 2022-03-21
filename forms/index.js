@@ -75,4 +75,47 @@ const createSneakerForm = function(cutTypes, brands, colors, tags){
     })
 }
 
-module.exports = {bootstrapField, createSneakerForm};
+const createUserForm = function() {
+    return forms.create({
+        'first_name': fields.string({
+            required: true,
+            errorAfterField: true
+        }),
+        'last_name': fields.string({
+            required: true,
+            errorAfterField: true
+        }),
+        'email': fields.string({
+            required: true,
+            errorAfterField: true
+        }),
+        'password': fields.string({
+            required: true,
+            errorAfterField: true,
+            widget: widgets.password()
+        }),
+        'confirm_password': fields.string({
+            required: true,
+            errorAfterField: true,
+            widget: widgets.password(),
+            validators:[ validators.matchField('password')]  // the content of the password field
+                                                             // must match the cotent of the confirm_password field
+        })
+    })
+}
+
+const createLoginForm = function() {
+    return forms.create({
+        'email': fields.string({
+            required: true,
+            errorAfterField: true
+        }),
+        'password': fields.string({
+            required: true,
+            errorAfterField: true,
+            widget: widgets.password()
+        })
+    })
+}
+
+module.exports = {bootstrapField, createSneakerForm, createUserForm, createLoginForm};

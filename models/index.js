@@ -70,4 +70,10 @@ const Color = bookshelf.model("Color", {
     }
 })
 
-module.exports = { Sneaker, CutType, Brand, Tag, Color };
+// first arg is the name of the model, and it must be singular form of the
+// table name, with the first alphabet in uppercase.
+const User = bookshelf.model("User", {
+    'tableName':'users'
+})
+
+module.exports = { Sneaker, CutType, Brand, Tag, Color, User };
