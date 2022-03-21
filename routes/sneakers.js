@@ -99,8 +99,8 @@ router.post('/create', async function (req, res) {
             }
 
             // flash messages can ONLY be used before a redirect
-            // req.flash('success_messages', 'New Sneaker added successfully');  // <-- we call the req.flash() function of the app.use(flash()) in index.js
-
+            req.flash('success_messages', 'Product created successfully'); // <-- we call the req.flash() function of the app.use(flash()) in index.js
+            
             // a redirect sends a response back to the browser
             // tell it to visit the URL in the first argument
             res.redirect('/sneakers');

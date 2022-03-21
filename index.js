@@ -52,7 +52,7 @@ app.use(function(req,res,next){
 app.use(session({
   'store': new FileStore(),  // a sessions store determines how the session data is saved
                              // if using FileStore, we are saving it to a file. 
-  'secret':'keyboard cat',   // used for encrpyting session ids 
+  'secret':'secret',   // used for encrpyting session ids 
   'resave': false,
   'saveUninitialized':true   // if a request arrives with no session, create a new session                          
 }))
@@ -69,6 +69,17 @@ app.use(function(req,res,next){
   res.locals.error_messages = req.flash('error_messages');
   next();
 })
+
+// global middleware - it is applied to all routes
+// inject the current logged in user to hbs files
+// app.use(function(req,res,next){
+//   // res.locals is an object
+//   // res.locals.user is to add a new property named 'user' to the object
+//   res.locals.user = req.session.user;  // in hbs file,
+//                                        // we are able to access
+//                                        // the user object from the client's session
+//   next(); // MUST call next() or else your express app will just hang with no error messages
+// })
 
 // import in routes
 const landingRoutes = require('./routes/landing');

@@ -25,3 +25,6 @@ chmod +x ./db-migrate.sh
 
 ./db-migrate.sh create <table_name>
 ./db-migrate.sh up
+
+TO ALLOW FLASH MESSAGES
+nodemon --ignore sessions
