@@ -8,14 +8,14 @@ const { Sneaker, CutType } = require('../models');
 // import in creatSneakerForm and bootstrapField
 const { bootstrapField, createSneakerForm } = require('../forms');
 
-// const { checkIfAuthenticated} = require('../middlewares');
+const { checkIfAuthenticated} = require('../middlewares');
 
 const sneakerDataLayer = require('../dal/sneakers');
 
 // add routes to the routers
 
 // list all the sneakers
-router.get('/', async function (req, res) {
+router.get('/', checkIfAuthenticated, async function (req, res) {
 
     let query = Sneaker.collection(); // create a query builder
     // write a query in increments
@@ -34,7 +34,7 @@ router.get('/', async function (req, res) {
 module.exports = router;
 
 // add checkIfAuthenticated middleware for this route
-router.get('/create', async function (req, res) {
+router.get('/create', checkIfAuthenticated, async function (req, res) {
 
     /* below is an example of how the choices for 
    dropdown select should look like:
@@ -65,7 +65,7 @@ router.get('/create', async function (req, res) {
     })
 })
 
-router.post('/create', async function (req, res) {
+router.post('/create', checkIfAuthenticated, async function (req, res) {
     // goal: create a new sneaker based on the input in the forms
 
     // create an instance of the sneaker form
@@ -116,7 +116,7 @@ router.post('/create', async function (req, res) {
     })
 })
 
-router.get('/:sneaker_id/update', async function (req, res) {
+router.get('/:sneaker_id/update', checkIfAuthenticated, async function (req, res) {
 
     const sneakerId = req.params.sneaker_id;
     // fetch one row from the table
@@ -151,7 +151,7 @@ router.get('/:sneaker_id/update', async function (req, res) {
     })
 })
 
-router.post('/:sneaker_id/update', async function (req, res) {
+router.post('/:sneaker_id/update', checkIfAuthenticated, async function (req, res) {
     // fetch the instance of the sneaker that we wish to update
     const sneaker = await sneakerDataLayer.getSneakerById(req.params.sneaker_id);
 
@@ -215,7 +215,7 @@ router.post('/:sneaker_id/update', async function (req, res) {
     })
 })
 
-router.get('/:sneaker_id/delete', async function (req, res) {
+router.get('/:sneaker_id/delete', checkIfAuthenticated, async function (req, res) {
     const sneaker = await sneakerDataLayer.getSneakerById(req.params.sneaker_id);
     res.render('sneakers/delete', {
         'sneaker': sneaker.toJSON()

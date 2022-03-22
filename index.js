@@ -1,10 +1,13 @@
 const express = require("express");
 const hbs = require("hbs");
 const wax = require("wax-on");
-// const csrf = require('csurf'); // protection vs. CRSF attacks
+const csrf = require('csurf'); // protection vs. CRSF attacks
 const cors = require('cors'); // enable cross origin resource sharing
       
 require("dotenv").config();
+
+
+
 
 // setup sessions and flash messaging
 const session = require('express-session');
@@ -52,7 +55,7 @@ app.use(function(req,res,next){
 app.use(session({
   'store': new FileStore(),  // a sessions store determines how the session data is saved
                              // if using FileStore, we are saving it to a file. 
-  'secret':'secret',   // used for encrpyting session ids 
+  'secret':'keyboard cat',   // used for encrpyting session ids 
   'resave': false,
   'saveUninitialized':true   // if a request arrives with no session, create a new session                          
 }))
@@ -72,24 +75,67 @@ app.use(function(req,res,next){
 
 // global middleware - it is applied to all routes
 // inject the current logged in user to hbs files
+app.use(function(req,res,next){
+  // res.locals is an object
+  // res.locals.user is to add a new property named 'user' to the object
+  res.locals.user = req.session.user;  // in hbs file,
+                                       // we are able to access
+                                       // the user object from the client's session
+  next(); // MUST call next() or else your express app will just hang with no error messages
+})
+
 // app.use(function(req,res,next){
-//   // res.locals is an object
-//   // res.locals.user is to add a new property named 'user' to the object
-//   res.locals.user = req.session.user;  // in hbs file,
-//                                        // we are able to access
-//                                        // the user object from the client's session
-//   next(); // MUST call next() or else your express app will just hang with no error messages
+//   console.log(req.body);
+//   next();
 // })
+
+// add in csrf protection
+app.use(csrf());
+
+// const csrfInstance = csrf();
+// app.use(function(req,res,next){
+//   if (req.url === '/checkout/process_payment' || 
+//       req.url.slice(0,5)==='/api/') {
+//     return next(); // skip csrf check if the route is for webhook
+//   } else {
+//     csrfInstance(req,res,next);
+//   }
+// })
+
+// // check if there is a csrf error. If so, render a friendly error message
+app.use(function(err, req, res, next){
+   // check for bad csrf token error
+  if (err && err.code == "EBADCSRFTOKEN") {
+    console.log("ERROR CSRF");
+    req.flash('error_messages', 'The form has expired. Please try again.');
+    res.redirect('back'); // 'back' means tell the browser go back to previous page
+  } else {
+    next();
+  }
+})
+
+// share the csrf token with all hbs files
+app.use(function(req,res,next){
+  // check if the current request has csrf enabled or not
+  if (req.csrfToken) {
+    res.locals.csrfToken = req.csrfToken();  // req.csrfToken() is available
+    // after we do `app.use(csrf())`
+  }
+
+  next();
+})
 
 // import in routes
 const landingRoutes = require('./routes/landing');
 const sneakerRoutes = require('./routes/sneakers');
+const userRoutes = require('./routes/users');
 
 async function main() {
     app.use('/', landingRoutes);
     // the first parameter is the prefix
     // the second parameter is the router object
     app.use('/sneakers', sneakerRoutes);
+    app.use('/users', userRoutes);
 
     // register API routes
     // all API routes will have urls that begin with '/api/'

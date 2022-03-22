@@ -16,6 +16,7 @@ Initialize project
 - yarn add express-session
 - yarn add connect-flash
 - yarn add session-file-store
+- yarn add csurf
 
 DESIGN DATABASE
 https://sqldbm.com/Home/
@@ -28,3 +29,7 @@ chmod +x ./db-migrate.sh
 
 TO ALLOW FLASH MESSAGES
 nodemon --ignore sessions
+
+Admin credentials
+User: admin@admin.com
+Password: admin

@@ -4,7 +4,8 @@
 <h1>Login</h1>
 <form method="POST">
     {{{form}}}
-    <input type="submit" class="btn btn-primary mt-3" value="Log in"/>
+    <input type="submit" class="btn btn-sm btn-primary mt-3" value="Log in"/>
+    <a href="/users/register" class="btn btn-warning btn-sm mt-3">Create Admin Account</a>
     <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
 </form>
 {{/block}}

@@ -27,9 +27,11 @@ router.post('/register', function(req,res){
             // create a new user model instance
             // an instance of a model refers to one row in the table
             const user = new User({
-                'username': form.data.username,
+                'first_name': form.data.first_name,
+                'last_name': form.data.last_name,
                 'password': getHashedPassword(form.data.password),
-                'email': form.data.email
+                'email': form.data.email,
+                'admin': 'Y'
             })
 
             // save the model
@@ -78,16 +80,19 @@ router.post('/login', function(req,res){
                 // user.get('password') --> is the password from the row in the table
                 // form.data.password --> is the password that the user types into the form
                 if (user.get('password') == getHashedPassword(form.data.password)) {
+                    console.log("LOGIN SUCCESSFUL");
 
                     // save the user in the session
                     // req.session: allows to add data to the session file, or to change data in the session file
                     req.session.user = {
                         id: user.get('id'),
-                        username: user.get('username')
+                        first_name: user.get('first_name'),
+                        last_name: user.get('last_name')
                     }
                     req.flash("success_messages", "Login successful!")
                     res.redirect('/');
                 } else {
+                    console.log("LOGIN FAILED");
                     // flash messages must go before a redirect
                     req.flash('error_messages', "Sorry your authentication details are incorrect");
                     res.redirect('/users/login')

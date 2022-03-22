@@ -3,17 +3,18 @@
 
 const express = require('express');
 const router = express.Router(); // a Router is an object that can store many routes
+const { checkIfAuthenticated} = require('../middlewares');
 
 // add in a route for the main page
-router.get('/', function(req,res){
+router.get('/', checkIfAuthenticated, function(req,res){
     res.render('landing/index')
 });
 
-router.get('sneakers/', function(req,res){
+router.get('sneakers/', checkIfAuthenticated, function(req,res){
     res.render('sneakers/index');
 })
 
-router.get('/contact-us', function(req,res){
+router.get('/contact-us', checkIfAuthenticated, function(req,res){
     res.render('landing/contact-us');
 })
 

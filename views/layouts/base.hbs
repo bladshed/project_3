@@ -29,7 +29,7 @@
       </ul>
       <div>
         {{#if user}}
-          Welcome, <a href="/users/profile">{{user.username}}</a>
+          Welcome, <a href="/users/profile">{{user.last_name}}, {{user.first_name}}</a>
         {{else}}
           <a href="/users/login" class="btn btn-success btn-sm">Login</a>
         {{/if}}
