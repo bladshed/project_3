@@ -118,4 +118,44 @@ const createLoginForm = function() {
     })
 }
 
-module.exports = {bootstrapField, createSneakerForm, createUserForm, createLoginForm};
+const createSearchForm = function(cutTypes, brands, colors, tags) {
+    return forms.create({
+        'name': fields.string({
+            required: false 
+        }),
+        'min_price':fields.string({
+            required: false,
+            errorAfterField: true,
+            validators:[validators.integer(), validators.min(0)]
+        }),
+        'max_price':fields.string({
+            required: false,
+            errorAfterField: true,
+            validators:[validators.integer(), validators.min(0)]
+        }),
+        'brand_id':fields.string({
+            label:'Brand',
+            required: false,
+            widget: widgets.select(),
+            choices: brands
+        }),
+        'cut_type_id':fields.string({
+            label:'Cut',
+            required: false,
+            widget: widgets.select(),
+            choices: cutTypes
+        }),
+        'colors': fields.string({
+            required: false,
+            widget: widgets.multipleSelect(),
+            choices: colors
+        }),
+        'tags': fields.string({
+            required: false,
+            widget: widgets.multipleSelect(),
+            choices: tags
+        })
+    })
+}
+
+module.exports = { bootstrapField, createSneakerForm, createUserForm, createLoginForm, createSearchForm };

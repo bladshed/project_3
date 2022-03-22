@@ -79,8 +79,8 @@ router.post('/login', function(req,res){
                 // if the user is found, make sure that the password matches
                 // user.get('password') --> is the password from the row in the table
                 // form.data.password --> is the password that the user types into the form
-                if (user.get('password') == getHashedPassword(form.data.password)) {
-                    console.log("LOGIN SUCCESSFUL");
+                if ( (user.get('password') == getHashedPassword(form.data.password)) 
+                    && (user.get('admin') === 'Y') ) {
 
                     // save the user in the session
                     // req.session: allows to add data to the session file, or to change data in the session file
@@ -89,10 +89,12 @@ router.post('/login', function(req,res){
                         first_name: user.get('first_name'),
                         last_name: user.get('last_name')
                     }
-                    req.flash("success_messages", "Login successful!")
-                    res.redirect('/');
+
+                    req.session.save( () => {
+                        req.flash("success_messages", "Login successful!");
+                        res.redirect('/');
+                    });
                 } else {
-                    console.log("LOGIN FAILED");
                     // flash messages must go before a redirect
                     req.flash('error_messages', "Sorry your authentication details are incorrect");
                     res.redirect('/users/login')
@@ -130,10 +132,11 @@ router.get('/profile', async function(req,res){
 
 router.get('/logout', function(req,res){
     // destroy the session for the client accessing this route
-    console.log("LOG OUT");
     req.session.user = null;
-    req.flash('success_messages', "Goodbye!");
-    res.redirect('/users/login');
+    req.session.save( () => {
+        req.flash('success_messages', "Goodbye!");
+        res.redirect('/users/login');
+    });
 });
 
 // export out the router object

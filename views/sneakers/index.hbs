@@ -1,11 +1,19 @@
 {{#extends 'base'}}
 
 {{#block "content"}}
+<h3>Search:</h3>
+<form method="GET">
+    {{{searchForm}}}
+    <input type="submit" class="btn btn-primary btn-sm mt-3" value="Search"/>
+</form>
+
+<hr>
+<hr>
+
 <a href="/sneakers/create" class="btn btn-primary btn-sm mt-3">Create</a>
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Brand</th>
             <th>Name</th>
             <th>Price</th>
@@ -19,9 +27,6 @@
     <tbody>
         {{#each sneakers}}
         <tr>
-            <td>
-                {{this.id}}
-            </td>
             <td>
                 {{this.brand.name}}
             </td>

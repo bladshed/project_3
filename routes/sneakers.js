@@ -6,7 +6,7 @@ const router = express.Router();
 const { Sneaker, CutType } = require('../models');
 
 // import in creatSneakerForm and bootstrapField
-const { bootstrapField, createSneakerForm } = require('../forms');
+const { bootstrapField, createSneakerForm, createSearchForm } = require('../forms');
 
 const { checkIfAuthenticated} = require('../middlewares');
 
@@ -17,16 +17,88 @@ const sneakerDataLayer = require('../dal/sneakers');
 // list all the sneakers
 router.get('/', checkIfAuthenticated, async function (req, res) {
 
+    const searchForm = await getSneakerForm(true);
+
     let query = Sneaker.collection(); // create a query builder
     // write a query in increments
     // eqv. "SELECT * FROM sneakers"
 
-    let sneakers = await query.fetch({
-        withRelated: ['cutType', 'brand', 'tags', 'colors']
-    })
+    // let sneakers = await query.fetch({
+    //     withRelated: ['cutType', 'brand', 'tags', 'colors']
+    // })
 
-    res.render('sneakers/index', {
-        'sneakers': sneakers.toJSON()
+    // res.render('sneakers/index', {
+    //     'sneakers': sneakers.toJSON(),
+    //     'searchForm': form.toHTML(bootstrapField)
+    // })
+
+    searchForm.handle(req,{
+        'empty':async function(form) {
+            // if the user never fill in, we just return all products
+            let sneakers = await query.fetch({
+                withRelated: ['cutType', 'brand', 'tags', 'colors']
+            })
+            res.render('sneakers/index', {
+                'sneakers': sneakers.toJSON(),
+                'searchForm': form.toHTML(bootstrapField)
+            })
+        },
+        'success':async function(form) {
+            // if the name is provided
+            if (form.data.name) {
+                // add on the query
+                // adding to "WHERE name LIKE '%product_name%'"" to "SELECT * FROM products"                
+                query.where('name', 'like', '%' + req.query.name + '%');
+            }
+
+            if (form.data.min_price) {
+                query.where('price', '>=', form.data.min_price);
+            }
+
+            if (form.data.max_price) {
+                query.where('price', '<=', form.data.max_price);
+            }
+
+            if (form.data.brand_id && form.data.brand_id != "0") {
+                query.where('brand_id', '=', form.data.brand_id)
+            }
+
+            if (form.data.cut_type_id && form.data.cut_type_id != "0") {
+                query.where('cut_type_id', '=', form.data.cut_type_id)
+            }
+
+            if (form.data.colors) {
+                // query.query
+                // [a]   [b]
+                // a => query builder
+                // b => a function named query()
+
+                // join the products with products_tags
+                // 2nd arg -> the table to join with
+                // 3rd arg -> the primary key of left hand side table
+                // 4th arg -> the fk of ther right hand side table
+                query.query('join', 'colors_sneakers', 'sneakers.id','sneaker_id')
+                    .where('color_id','in', form.data.colors.split(','));
+            } 
+
+            if (form.data.tags) {
+                // join the products with products_tags
+                // 2nd arg -> the table to join with
+                // 3rd arg -> the primary key of left hand side table
+                // 4th arg -> the fk of ther right hand side table
+                query.query('join', 'sneakers_tags', 'sneakers.id','sneaker_id')
+                    .where('tag_id','in', form.data.tags.split(','));
+            }            
+
+            // execute the query
+            let sneakers = await query.fetch({
+                withRelated: ['cutType', 'brand', 'tags', 'colors']
+            })
+            res.render('sneakers/index', {
+                'sneakers': sneakers.toJSON(),
+                'searchForm': form.toHTML(bootstrapField)
+            })
+        }
     })
 })
 
@@ -235,7 +307,7 @@ router.post('/:sneaker_id/delete', async function (req, res) {
 // GLOBAL FUNCTION
 //////////////////////////////////////////////////////////////////////////////
 
-const getSneakerForm = async function () {
+const getSneakerForm = async function (isSearchForm) {
     // get all cut types
     const allCutTypes = await sneakerDataLayer.getAllCutTypes();
 
@@ -248,8 +320,15 @@ const getSneakerForm = async function () {
     // get all tags
     const allTags = await sneakerDataLayer.getAllTags();
 
-    // create an instance of the sneaker form
-    const sneakerForm = createSneakerForm(allCutTypes, allBrands, allColors, allTags);
+    let pageForm;
 
-    return sneakerForm;
+    if(isSearchForm){
+        // create an instance of the sneaker form
+        pageForm = createSearchForm(allCutTypes, allBrands, allColors, allTags);
+    } else {
+        // create an instance of the sneaker form
+        pageForm = createSneakerForm(allCutTypes, allBrands, allColors, allTags);
+    }
+
+    return pageForm;
 }

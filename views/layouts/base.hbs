@@ -12,6 +12,7 @@
   </head>
   <body>
     <!-- A grey horizontal navbar that becomes vertical on small screens -->
+  {{#if user}}
   <nav class="navbar navbar-expand-sm bg-light">
 
     <div class="container-fluid">
@@ -28,13 +29,10 @@
         </li>
       </ul>
       <div>
-        {{#if user}}
           Welcome, <a href="/users/profile">{{user.last_name}}, {{user.first_name}}</a>
-        {{else}}
-          <a href="/users/login" class="btn btn-success btn-sm">Login</a>
-        {{/if}}
       </div>
     </div>
+    {{/if}}
 
   </nav>
     <div class="container">     
