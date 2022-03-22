@@ -1,9 +1,15 @@
 {{#extends 'base'}}
 
 {{#block "content"}}
-<h1>Create a new Product</h1>
+<h1>Add new Sneaker</h1>
 <form method="POST">
     {{{form}}}
+
+    <!-- for upload images -->
+    <div class="mt-3">
+        <a href="#" class="btn btn-primary" id="upload-widget">Upload</a>
+        <img src="" style="display:none" id="uploaded-image" width="370" height="300"/>
+    </div>
 
     <input type="submit" class="btn btn-primary mt-3"/>
     <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
@@ -40,15 +46,19 @@
     // first arg: config information
     // second arg: a function that is executed by the widget when the upload has finished
     const myWidget = cloudinary.createUploadWidget(cloudinaryConfig, function(error, result){
+        console.log("Uploading image");
         // check if there is no error and there is a result, and the event of the result
         // is a successful upload
         if (!error && result && result.event == 'success') {
+            console.log("Upload image successful");
             let url = result.info.secure_url;
             // set the value of the hidden form field `image_url` to be
             // the URL of the uploaded image
             document.querySelector('#id_image_url').value = url;
             document.querySelector("#uploaded-image").src = url;
             document.querySelector("#uploaded-image").style.display="block";
+        } else {
+            console.log("Upload image failed");
         }
     });
 

@@ -147,7 +147,10 @@ router.get('/:sneaker_id/update', checkIfAuthenticated, async function (req, res
 
     res.render('sneakers/update', {
         'form': sneakerForm.toHTML(bootstrapField),
-        'sneaker': sneaker.toJSON()
+        'sneaker': sneaker.toJSON(),
+        'cloudinaryName':process.env.CLOUDINARY_NAME,
+        'cloudinaryApiKey':process.env.CLOUDINARY_API_KEY,
+        'cloudinaryUploadPreset':process.env.CLOUDINARY_UPLOAD_PRESET
     })
 })
 

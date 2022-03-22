@@ -6,9 +6,6 @@ const cors = require('cors'); // enable cross origin resource sharing
       
 require("dotenv").config();
 
-
-
-
 // setup sessions and flash messaging
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -129,6 +126,7 @@ app.use(function(req,res,next){
 const landingRoutes = require('./routes/landing');
 const sneakerRoutes = require('./routes/sneakers');
 const userRoutes = require('./routes/users');
+const cloudinaryRoutes = require('./routes/cloudinary');
 
 async function main() {
     app.use('/', landingRoutes);
@@ -136,6 +134,7 @@ async function main() {
     // the second parameter is the router object
     app.use('/sneakers', sneakerRoutes);
     app.use('/users', userRoutes);
+    app.use('/cloudinary', cloudinaryRoutes);
 
     // register API routes
     // all API routes will have urls that begin with '/api/'

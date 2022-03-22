@@ -13,6 +13,7 @@ async function createSneaker(sneakerData) {
     newSneaker.set('price', sneakerData.price);
     newSneaker.set('brand_id', sneakerData.brand_id);
     newSneaker.set('cut_type_id', sneakerData.cut_type_id);
+    newSneaker.set('image_url', sneakerData.image_url);
 
     await newSneaker.save();
     return newSneaker;

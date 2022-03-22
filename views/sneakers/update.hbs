@@ -6,14 +6,17 @@
     {{{form}}}
     <div class="mt-3">
     <!-- display the sneaker image (if it exists) -->
+    <div>
+        <a href="#" class="btn btn-primary" id="upload-widget">Upload</a>
+    </div>
     {{#if sneaker.image_url}} 
-        <img src="{{sneaker.image_url}}" id="uploaded-image" width="300" height="300"/>
+        <img src="{{sneaker.image_url}}" id="uploaded-image" width="370" height="300"/>
     {{else}}
-        <img src="" style="display:none" id="uploaded-image"/>
+        <img src="" style="display:none" id="uploaded-image" width="370" height="300"/>
     {{/if}}
     </div>
 
-    <input type="submit" value="Update" class="btn btn-sm btn-primary mt-3"/>
+    <input type="submit" class="btn btn-primary mt-3"/>
     <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
 </form>
 {{/block}}
