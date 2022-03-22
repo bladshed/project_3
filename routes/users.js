@@ -130,6 +130,7 @@ router.get('/profile', async function(req,res){
 
 router.get('/logout', function(req,res){
     // destroy the session for the client accessing this route
+    console.log("LOG OUT");
     req.session.user = null;
     req.flash('success_messages', "Goodbye!");
     res.redirect('/users/login');
