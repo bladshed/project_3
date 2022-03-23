@@ -73,7 +73,25 @@ const Color = bookshelf.model("Color", {
 // first arg is the name of the model, and it must be singular form of the
 // table name, with the first alphabet in uppercase.
 const User = bookshelf.model("User", {
-    'tableName':'users'
+    'tableName':'users',
+    orders() {
+        // the arg of hasMany is the Model name
+        return this.hasMany('Order');
+    },
 })
 
-module.exports = { Sneaker, CutType, Brand, Tag, Color, User };
+const CartItem = bookshelf.model("CartItem", {
+    'tableName':'cart_items',
+    sneaker() {
+        return this.belongsTo('Sneaker');
+    }
+})
+
+const Order = bookshelf.model("Order", {
+    'tableName':'orders',
+    sneaker() {
+        return this.belongsTo('User');
+    }
+})
+
+module.exports = { Sneaker, CutType, Brand, Tag, Color, User, CartItem, Order };
