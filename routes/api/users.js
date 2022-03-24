@@ -1,7 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-
+const userDataLayer = require('../../dal/users');
 const router = express.Router();
 const { User } = require('../../models');
 const { checkIfAuthenticatedWithJWT} = require('../../middlewares');
@@ -51,6 +51,10 @@ router.post('/login', async function(req,res){
         let accessToken = generateToken(user.toJSON(), process.env.TOKEN_SECRET, "15min");
         // the refreshToken should expire later than the accessToken
         let refreshToken = generateToken(user.toJSON(), process.env.REFRESH_TOKEN_SECRET, "1h");
+        
+        // update user to add token
+        await userDataLayer.updateUserToken(user.id, refreshToken);
+
         res.json({
             'accessToken':accessToken,
             'refreshToken':refreshToken
@@ -124,10 +128,7 @@ router.post('/logout', async function(req,res){
                 res.sendStatus(403);
                 return;
             } else {
-                const token = new BlacklistedToken();
-                token.set('token', refreshToken);
-                token.set('date_created', new Date());
-                await token.save();
+                await userDataLayer.updateUserToken(user.id, '');
                 res.json({
                     'message':'logged out'
                 })

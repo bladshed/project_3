@@ -132,7 +132,8 @@ const checkoutRoutes = require('./routes/checkout');
 const orderRoutes = require('./routes/orders');
 
 const api = {
-  'users': require('./routes/api/users')
+  'users': require('./routes/api/users'),
+  'sneakers': require('./routes/api/sneakers'),
 }
 
 async function main() {
@@ -149,6 +150,7 @@ async function main() {
     // register API routes
     // all API routes will have urls that begin with '/api/'
     app.use('/api/users', express.json(), api.users);
+    app.use('/api/sneakers', express.json(), api.sneakers);
 }
 
 main();

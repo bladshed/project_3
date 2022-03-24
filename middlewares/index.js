@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const userDataLayer = require('../dal/users');
 
 const checkIfAuthenticated = function(req,res,next){
     if (req.session.user) {
@@ -17,15 +18,23 @@ const checkIfAuthenticatedWithJWT = function(req,res,next) {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
-        jwt.verify(token, process.env.TOKEN_SECRET, function(err,user){
+        jwt.verify(token, process.env.TOKEN_SECRET, async function(err,user){
             if (err) {
                 res.status("401").json({
                     "message":"Forbidden"
                 })
             } else{
-                // add the user object to req
-                req.user = user;
-                next();
+                const token = await userDataLayer.getUserToken(user.id);
+                console.log("Token: "+token);
+                if (token === null || token === ''){
+                    res.status("401").json({
+                        "message":"Forbidden"
+                    })
+                } else {
+                    // add the user object to req
+                    req.user = user;
+                    next();
+                }
             }
         })
     } else {
