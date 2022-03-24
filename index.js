@@ -87,17 +87,17 @@ app.use(function(req,res,next){
 // })
 
 // add in csrf protection
-app.use(csrf());
+// app.use(csrf());
 
-// const csrfInstance = csrf();
-// app.use(function(req,res,next){
-//   if (req.url === '/checkout/process_payment' || 
-//       req.url.slice(0,5)==='/api/') {
-//     return next(); // skip csrf check if the route is for webhook
-//   } else {
-//     csrfInstance(req,res,next);
-//   }
-// })
+const csrfInstance = csrf();
+app.use(function(req,res,next){
+  if (req.url === '/checkout/process_payment' || 
+      req.url.slice(0,5)==='/api/') {
+    return next(); // skip csrf check if the route is for webhook
+  } else {
+    csrfInstance(req,res,next);
+  }
+})
 
 // // check if there is a csrf error. If so, render a friendly error message
 app.use(function(err, req, res, next){
@@ -131,6 +131,10 @@ const cartRoutes = require('./routes/cart');
 const checkoutRoutes = require('./routes/checkout');
 const orderRoutes = require('./routes/orders');
 
+const api = {
+  'users': require('./routes/api/users')
+}
+
 async function main() {
     app.use('/', landingRoutes);
     // the first parameter is the prefix
@@ -144,6 +148,7 @@ async function main() {
 
     // register API routes
     // all API routes will have urls that begin with '/api/'
+    app.use('/api/users', express.json(), api.users);
 }
 
 main();

@@ -19,6 +19,7 @@ Initialize project
 - yarn add csurf
 - yarn add cloudinary
 - yarn add stripe
+- yarn add jsonwebtoken
 
 DESIGN DATABASE
 https://sqldbm.com/Home/
