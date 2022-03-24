@@ -1,0 +1,22 @@
+{{#extends "base"}}
+
+{{#block "content"}}
+<h1>Updating Order</h1>
+<form method="POST">
+    <label for="orderId" class="form-label">Order Id</label>
+    <input type="text" class="form-control" id="orderId" value="{{order.id}}" disabled>
+
+    <label for="order_number" class="form-label">Cart Number</label>
+    <input type="text" class="form-control" id="order_number" value="{{order.order_number}}" disabled>
+
+    <label for="fullname" class="form-label">User</label>
+    <input type="text" class="form-control" id="fullname" value="{{order.user.last_name}}, {{order.user.first_name}}" disabled>
+
+    {{{form}}}
+
+    <input type="submit" class="btn btn-primary mt-3"/>
+    <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
+</form>
+{{/block}}
+
+{{/extends}}

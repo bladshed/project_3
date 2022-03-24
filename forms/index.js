@@ -158,4 +158,13 @@ const createSearchForm = function(cutTypes, brands, colors, tags) {
     })
 }
 
-module.exports = { bootstrapField, createSneakerForm, createUserForm, createLoginForm, createSearchForm };
+const createOrderForm = function() {
+    return forms.create({
+        'delivery_status':fields.string({
+            label:'Delivery Status',
+            required: true
+        })
+    })
+}
+
+module.exports = { bootstrapField, createSneakerForm, createUserForm, createLoginForm, createSearchForm, createOrderForm };

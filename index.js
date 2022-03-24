@@ -129,6 +129,7 @@ const userRoutes = require('./routes/users');
 const cloudinaryRoutes = require('./routes/cloudinary');
 const cartRoutes = require('./routes/cart');
 const checkoutRoutes = require('./routes/checkout');
+const orderRoutes = require('./routes/orders');
 
 async function main() {
     app.use('/', landingRoutes);
@@ -139,6 +140,7 @@ async function main() {
     app.use('/cloudinary', cloudinaryRoutes);
     app.use('/cart', cartRoutes);
     app.use('/checkout', checkoutRoutes);
+    app.use('/orders', orderRoutes);
 
     // register API routes
     // all API routes will have urls that begin with '/api/'

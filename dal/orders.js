@@ -18,4 +18,14 @@ async function createOrder(userId, orderNumber) {
     return newOrder;
 }
 
-module.exports = { getAllOrders, createOrder }
+async function getOrderById(orderId) {
+    const order = await Order.where({
+        'id': orderId
+    }).fetch({
+        'require':false,
+        withRelated:['user'] 
+    });
+    return order;
+}
+
+module.exports = { getAllOrders, createOrder, getOrderById }

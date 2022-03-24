@@ -1,0 +1,15 @@
+{{#extends "base"}}
+
+{{#block "content"}}
+<h1>Deleting Order</h1>
+<form method="POST">
+    <div class="alert alert-danger">
+        <p>Are you sure you want to delete Order - "{{order.id}}"</p>
+        <input type="submit" class="btn btn-danger" value="Confirm delete"/>
+        <a href="/orders" class="btn btn-success">Cancel delete</a>
+    </div>
+    <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
+</form>
+{{/block}}
+
+{{/extends}}

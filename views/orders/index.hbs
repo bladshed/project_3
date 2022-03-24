@@ -1,0 +1,41 @@
+{{#extends 'base'}}
+
+{{#block "content"}}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Cart Number</th>
+            <th>User</th>
+            <th>Delivery Status</th>
+            <th>Date Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each orders}}
+        <tr>
+            <td>
+                {{this.id}}
+            </td>
+            <td>
+                {{this.order_number}}
+            </td>
+            <td>
+                {{this.user.last_name}}, {{this.user.first_name}}
+            </td>
+            <td>
+                {{this.delivery_status}}
+            </td>
+            <td>
+                <a href="/orders/{{this.id}}/update" 
+                    class="btn btn-primary btn-sm">Update</a>
+                <a href="/orders/{{this.id}}/delete"
+                    class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        {{/each}}
+        </tr>
+    </tbody>
+</table>
+{{/block}}
+
+{{/extends}}

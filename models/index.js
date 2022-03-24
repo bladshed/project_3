@@ -89,7 +89,7 @@ const CartItem = bookshelf.model("CartItem", {
 
 const Order = bookshelf.model("Order", {
     'tableName':'orders',
-    sneaker() {
+    user() {
         return this.belongsTo('User');
     }
 })
