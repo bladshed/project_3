@@ -13,7 +13,7 @@ router.get('/', checkIfAuthenticated, async function(req,res){
     });
 })
 
-router.get('/:sneaker_id/add', checkIfAuthenticated, async function(req,res){
+router.post('/:sneaker_id/add', checkIfAuthenticated, async function(req,res){
     let userId = req.session.user.id;
     let sneakerId = req.params.sneaker_id;
     let quantity = 1;

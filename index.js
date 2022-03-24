@@ -134,6 +134,7 @@ const orderRoutes = require('./routes/orders');
 const api = {
   'users': require('./routes/api/users'),
   'sneakers': require('./routes/api/sneakers'),
+  'cart': require('./routes/api/cart'),
 }
 
 async function main() {
@@ -151,6 +152,7 @@ async function main() {
     // all API routes will have urls that begin with '/api/'
     app.use('/api/users', express.json(), api.users);
     app.use('/api/sneakers', express.json(), api.sneakers);
+    app.use('/api/cart', express.json(), api.cart);
 }
 
 main();

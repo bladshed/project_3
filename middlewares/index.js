@@ -25,7 +25,6 @@ const checkIfAuthenticatedWithJWT = function(req,res,next) {
                 })
             } else{
                 const token = await userDataLayer.getUserToken(user.id);
-                console.log("Token: "+token);
                 if (token === null || token === ''){
                     res.status("401").json({
                         "message":"Forbidden"
