@@ -160,11 +160,11 @@ async function main() {
 main();
 
 //LOCAL
-app.listen(8080, () => {
-  console.log("Server has started");
-});
-
-// PROD
-// app.listen(process.env.PORT, () => {
+// app.listen(8080, () => {
 //   console.log("Server has started");
 // });
+
+// PROD
+app.listen(process.env.PORT, function(){
+  console.log("Server started")
+})

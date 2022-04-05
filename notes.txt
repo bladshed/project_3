@@ -47,3 +47,5 @@ Credit Card # [test]
 
 User Admin Password: Admin
 User NOT Admin Password: 12345
+
+HEROKO PROJ NAME: project-3-hbs
