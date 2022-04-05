@@ -20,6 +20,8 @@ Initialize project
 - yarn add cloudinary
 - yarn add stripe
 - yarn add jsonwebtoken
+- yarn add pg
+- yarn add db-migrate-pg
 
 DESIGN DATABASE
 https://sqldbm.com/Home/
@@ -49,3 +51,6 @@ User Admin Password: Admin
 User NOT Admin Password: 12345
 
 HEROKO PROJ NAME: project-3-hbs
+
+Install postgres
+- heroku addons:create heroku-postgresql
