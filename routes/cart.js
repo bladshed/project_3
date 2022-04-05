@@ -13,7 +13,7 @@ router.get('/', checkIfAuthenticated, async function(req,res){
     });
 })
 
-router.post('/:sneaker_id/add', checkIfAuthenticated, async function(req,res){
+router.post('/add/:sneaker_id', checkIfAuthenticated, async function(req,res){
     console.log("ADD TO CART CALLED!");
     let userId = req.session.user.id;
     let sneakerId = req.params.sneaker_id;
