@@ -15,3 +15,9 @@ yarn add forms
 yarn add express-session
 yarn add connect-flash
 yarn add session-file-store
+yarn add csurf
+yarn add cloudinary
+yarn add stripe
+yarn add jsonwebtoken
+yarn add pg
+yarn add db-migrate-pg

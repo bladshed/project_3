@@ -22,7 +22,7 @@ router.post('/:sneaker_id/add', checkIfAuthenticated, async function(req,res){
     await cartServices.addToCart(sneakerId, quantity);
   
     req.flash('success_messages', 'Sneaker has been added to cart');
-    res.redirect('/cart/');
+    res.redirect('/cart');
 })
 
 router.post('/:sneaker_id/update', checkIfAuthenticated, async function(req,res){
@@ -30,7 +30,7 @@ router.post('/:sneaker_id/update', checkIfAuthenticated, async function(req,res)
     const cartServices = new CartServices(req.session.user.id);
     await cartServices.updateQuantity(req.params.sneaker_id, newQuantity);
     req.flash('success_messages', "Quantity has been updated");
-    res.redirect('/cart/')
+    res.redirect('/cart')
 })
 
 router.post('/:sneaker_id/remove', checkIfAuthenticated, async function(req,res){
