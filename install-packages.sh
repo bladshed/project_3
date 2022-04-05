@@ -4,7 +4,7 @@ npm install -g yarn
 yarn add express
 yarn add hbs
 yarn add wax-on
-yarn add dotenvmo
+yarn add dotenv
 yarn add cors
 yarn add db-migrate
 yarn add db-migrate-mysql

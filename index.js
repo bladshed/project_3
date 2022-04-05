@@ -135,6 +135,7 @@ const api = {
   'users': require('./routes/api/users'),
   'sneakers': require('./routes/api/sneakers'),
   'cart': require('./routes/api/cart'),
+  'checkout': require('./routes/api/checkout'),
 }
 
 async function main() {
@@ -153,6 +154,7 @@ async function main() {
     app.use('/api/users', express.json(), api.users);
     app.use('/api/sneakers', express.json(), api.sneakers);
     app.use('/api/cart', express.json(), api.cart);
+    app.use('/api/checkout', express.json(), api.checkout);
 }
 
 main();

@@ -5,7 +5,7 @@ Initialize project
 - yarn add express
 - yarn add hbs
 - yarn add wax-on
-- yarn add dotenvmo
+- yarn add dotenv
 - yarn add cors
 - yarn add db-migrate
 - yarn add db-migrate-mysql
@@ -37,5 +37,13 @@ Admin credentials
 User: admin@admin.com
 Password: admin
 
+STRIPES
+
+Add webhook (Developers > Webhooks > Add an endpoint)
+URL: http://<your-public-address>/checkout/process_payment
+
 Credit Card # [test]
 4242 4242 4242 4242
+
+User Admin Password: Admin
+User NOT Admin Password: 12345

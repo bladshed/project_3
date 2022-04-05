@@ -5,7 +5,6 @@ const router = express.Router();
 const CartServices = require('../../services/cart_services');
 
 router.get('/:user_id', checkIfAuthenticatedWithJWT, async function(req,res){
-    console.log("CART");
     let userId = req.params.user_id;
     const cartServices = new CartServices(userId);
     const allCartItems = await cartServices.getAllCartItems();
@@ -31,6 +30,7 @@ router.put('/:user_id/update', checkIfAuthenticatedWithJWT, async function(req,r
     let userId = req.params.user_id;
     let sneakerId = req.body.sneaker_id;
     let newQuantity = req.body.new_quantity;
+
     const cartServices = new CartServices(userId);
     await cartServices.updateQuantity(sneakerId, newQuantity);
 

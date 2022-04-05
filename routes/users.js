@@ -29,8 +29,8 @@ router.post('/register', function(req,res){
             const user = new User({
                 'first_name': form.data.first_name,
                 'last_name': form.data.last_name,
-                'password': getHashedPassword(form.data.password),
                 'email': form.data.email,
+                'password': getHashedPassword(form.data.password),
                 'admin': 'Y'
             })
 

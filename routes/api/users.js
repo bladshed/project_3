@@ -30,6 +30,26 @@ function getHashedPassword(password){
     return hash;
 }
 
+router.post('/register', async function(req,res){
+    // create a new user model instance
+    // an instance of a model refers to one row in the table
+    const user = new User({
+        'first_name': req.body.first_name,
+        'last_name': req.body.last_name,
+        'email': req.body.email,
+        'password': getHashedPassword(req.body.password),
+        'admin': 'N'
+    });
+
+    // save the model
+    await user.save();
+
+    res.json({
+        'success':"New user has been created"
+    });
+    return;
+})
+
 router.post('/login', async function(req,res){
     let userEmail = req.body.email;
     let password = req.body.password;
@@ -56,6 +76,7 @@ router.post('/login', async function(req,res){
         await userDataLayer.updateUserToken(user.id, refreshToken);
 
         res.json({
+            'userId': user.id,
             'accessToken':accessToken,
             'refreshToken':refreshToken
         })
@@ -94,7 +115,7 @@ router.post('/refresh', async function(req,res){
         // tell the user that they cannot use it to get a new access token
         res.status(401);
         res.json({
-            'message':"The refresh token has already expired or logged out"
+            'error':"The refresh token has already expired or logged out"
         });
         return;
     }
@@ -130,7 +151,7 @@ router.post('/logout', async function(req,res){
             } else {
                 await userDataLayer.updateUserToken(user.id, '');
                 res.json({
-                    'message':'logged out'
+                    'success':'logged out'
                 })
             }
         })
