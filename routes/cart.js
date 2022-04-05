@@ -13,8 +13,7 @@ router.get('/', checkIfAuthenticated, async function(req,res){
     });
 })
 
-router.post('/add/:sneaker_id', checkIfAuthenticated, async function(req,res){
-    console.log("ADD TO CART CALLED!");
+router.get('/:sneaker_id/add', checkIfAuthenticated, async function(req,res){
     let userId = req.session.user.id;
     let sneakerId = req.params.sneaker_id;
     let quantity = 1;
@@ -22,7 +21,6 @@ router.post('/add/:sneaker_id', checkIfAuthenticated, async function(req,res){
     let cartServices = new CartServices(userId);
     await cartServices.addToCart(sneakerId, quantity);
   
-    console.log("REDIRECT TO CART");
     req.flash('success_messages', 'Sneaker has been added to cart');
     res.redirect('/cart');
 })

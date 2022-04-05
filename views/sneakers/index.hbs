@@ -10,7 +10,9 @@
 <hr>
 <hr>
 
+{{#if user.admin}}
 <a href="/sneakers/create" class="btn btn-primary btn-sm mt-3">Create</a>
+{{/if}}
 <table class="table">
     <thead>
         <tr>
@@ -55,11 +57,13 @@
                 {{/if}}
             </td>
             <td>
-                <a href="/cart/add/{{this.id}}" class="btn btn-success btn-sm">Add to Cart</a>
+                <a href="/cart/{{this.id}}/add" class="btn btn-success btn-sm">Add to Cart</a>
+                {{#if user.admin}}
                 <a href="/sneakers/{{this.id}}/update" 
                     class="btn btn-primary btn-sm">Edit</a>
                 <a href="/sneakers/{{this.id}}/delete"
                     class="btn btn-danger btn-sm">Delete</a>
+                {{/if}}
             </td>
         {{/each}}
         </tr>

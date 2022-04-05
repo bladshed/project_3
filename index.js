@@ -92,7 +92,7 @@ app.use(function(req,res,next){
 const csrfInstance = csrf();
 app.use(function(req,res,next){
   if (req.url === '/checkout/process_payment' || 
-      req.url.slice(0,5)==='/api/') {
+      req.url.slice(0,5)==='/api/' || (req.url === '/users/register') ) {
     return next(); // skip csrf check if the route is for webhook
   } else {
     csrfInstance(req,res,next);
@@ -160,11 +160,11 @@ async function main() {
 main();
 
 //LOCAL
-// app.listen(8080, () => {
-//   console.log("Server has started");
-// });
+app.listen(8080, () => {
+  console.log("Server has started");
+});
 
 // PROD
-app.listen(process.env.PORT, function(){
-  console.log("Server started")
-})
+// app.listen(process.env.PORT, function(){
+//   console.log("Server started")
+// })

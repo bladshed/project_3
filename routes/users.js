@@ -79,8 +79,7 @@ router.post('/login', function(req,res){
                 // if the user is found, make sure that the password matches
                 // user.get('password') --> is the password from the row in the table
                 // form.data.password --> is the password that the user types into the form
-                if ( (user.get('password') == getHashedPassword(form.data.password)) 
-                    && (user.get('admin') === 'Y') ) {
+                if ( (user.get('password') == getHashedPassword(form.data.password)) ) {
 
                     // save the user in the session
                     // req.session: allows to add data to the session file, or to change data in the session file
@@ -88,6 +87,10 @@ router.post('/login', function(req,res){
                         id: user.get('id'),
                         first_name: user.get('first_name'),
                         last_name: user.get('last_name')
+                    }
+
+                    if (user.get('admin') === 'Y'){
+                        req.session.user.admin = "Y";
                     }
 
                     req.session.save( () => {
