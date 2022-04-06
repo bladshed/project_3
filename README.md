@@ -116,6 +116,12 @@ Live link to my Web Application -->
       * Cons:
          * heavy
          * slower
+   
+   * Cloudinary
+      * Pros:
+         * provides a way to upload your images
+      * Cons:
+         * not api to call to delete change the previous images or delete your images
 
 * BACKEND
    * Node js
@@ -137,6 +143,12 @@ Live link to my Web Application -->
          * provides a way to do both backend and frontend development
       * Cons:
          * not good for big application
+   
+   * Stipe
+      * Pros:
+         * provides a way to be able to test your paymnent
+      * Cons:
+         * very complex to implement on Vue Js
 
 * FRONTEND
    * Vue js
