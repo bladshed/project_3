@@ -7,7 +7,7 @@ const orderDataLayer = require('../../dal/orders');
 router.get('/success/:userId', async function (req, res) {
 
     // get user id
-    let userId = req.params.sessionId;
+    let userId = req.params.userId;
 
     // get all cart items
     const cartServices = new CartServices(userId);

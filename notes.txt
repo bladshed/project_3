@@ -48,7 +48,7 @@ URL: http://<your-public-address>/checkout/process_payment
 Credit Card # [test]
 4242 4242 4242 4242
 
-User Admin Password: ahedmin
+User Admin Password: admin
 User NOT Admin Password: 12345
 
 HEROKO PROJ NAME: project-3-hbs

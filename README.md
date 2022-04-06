@@ -175,6 +175,7 @@ Live link to my Web Application -->
    * Google fonts and Font awesome
       * these two libraries were used for my fonts and icons. They have cool fonts and icons.
 
+
 ### FUNCTIONAL AND NON FUNCTIONAL REQUIREMENTS
 
 * Functional
@@ -242,6 +243,7 @@ yarn lint
 #### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+
 ### Build & Deployment
 * Initialize project
    * npm install -g @vue/cli
@@ -279,7 +281,48 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
    * Every time you commit and push to your github, Netlify will get the latest code
 
 
-### TEST CASES
+### APIs
+
+BASE URL: https://project-3-hbs.herokuapp.com
+
+* USERS (/users)
+   * /register (POST)
+      * body params: first_name, last_name, email, password
+      * success: returns success message
+   * /login (POST)
+      * body params: email, password
+      * success: returns json object (userId, accessToken, refreshToken)
+   * /refresh (POST)
+      * body params: refreshToken
+      * success: returns accessToken
+   * /logout (POST)
+      * body params: refreshToken
+      * success: returns success message
+
+* SNEAKERS (/sneakers)
+   * / (GET)
+      * body params: 
+      * success: returns json sneakers array object
+
+* CART (/cart)
+   * /:user_id (GET)
+      * body params: user_id
+      * success: returns json cartItems array object
+   * /:user_id/add (POST)
+      * url params: user_id
+      * body params: sneaker_id
+      * success: returns success message
+   * /:user_id/update (PUT)
+      * url params: user_id
+      * body params: sneaker_id, new_quantity
+      * success: returns success message
+   * /:user_id/remove (DELETE)
+      * url params: user_id
+      * body params: sneaker_id
+      * success: returns success message
+
+
+### TEST CASES (FULL STACK)
 <table>
    <tr>
       <th colspan=2>Login Page
@@ -354,6 +397,88 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
    <tr>
       <td>[ADMIN] Go to Orders</td>
       <td>See all user orders</td>
+   </tr>
+</table>
+
+
+### TEST CASES (APIs)
+<table>
+   <tr>
+      <th colspan=2>User APIs
+   </tr>
+   <tr>
+      <th>
+         <img width="441" height="1">
+         <small>Action</small>
+      </td>
+      <th>
+         <img width="441" height="1">
+         <small>Expected Result</small>
+      </td>
+   </tr>
+   <tr>
+      <td>Register user</td>
+      <td>Returns json success message</td>
+   </tr>
+   <tr>
+      <td>Login user</td>
+      <td>Returns json object (userId, accessToken, refreshToken)</td>
+   </tr>
+   <tr>
+      <td>Refresh token</td>
+      <td>Returns accessToken</td>
+   </tr>
+   <tr>
+      <td>Logout user</td>
+      <td>Returns success message</td>
+   </tr>
+
+   <tr>
+      <th colspan=2>Sneaker APIs
+   </tr>
+   <tr>
+      <th>
+         <img width="441" height="1">
+         <small>Action</small>
+      </td>
+      <th>
+         <img width="441" height="1">
+         <small>Expected Result</small>
+      </td>
+   </tr>
+   <tr>
+      <td>Get all sneakers</td>
+      <td>Returns json sneakers array object</td>
+   </tr>
+
+   <tr>
+      <th colspan=2>Cart APIs
+   </tr>
+   <tr>
+      <th>
+         <img width="441" height="1">
+         <small>Action</small>
+      </td>
+      <th>
+         <img width="441" height="1">
+         <small>Expected Result</small>
+      </td>
+   </tr>
+   <tr>
+      <td>Get cart items by user</td>
+      <td>Returns json cartItems array object</td>
+   </tr>
+   <tr>
+      <td>Add to cart</td>
+      <td>Returns success message</td>
+   </tr>
+   <tr>
+      <td>Update to cart quantity</td>
+      <td>Returns success message</td>
+   </tr>
+   <tr>
+      <td>Remove cart item</td>
+      <td>Returns success message</td>
    </tr>
 </table>
 
