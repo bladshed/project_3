@@ -306,13 +306,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
       <th colspan=2>Sneaker Market
    </tr>
    <tr>
-      <td>Logout</td>
-      <td>Logged out from the web app</td>
-   </tr>
-   <tr>
-      <th colspan=2>Sneaker Market
-   </tr>
-   <tr>
       <th>
          <img width="441" height="1">
          <small>Action</small>
@@ -321,6 +314,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
          <img width="441" height="1">
          <small>Expected Result</small>
       </td>
+   </tr>
+   <tr>
+      <td>Logout</td>
+      <td>Logged out from the web app</td>
    </tr>
    <tr>
       <td>[USER] Go to Sneakers page</td>
