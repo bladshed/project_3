@@ -131,24 +131,6 @@ Live link to my Web Application -->
          * most language used in development so it is easier to connect to other systems
       * Cons:
          * not yet familiar
-   
-   * Express framework
-      * Pros:
-         * provides a thin layer of fundamental web application features
-      * Cons:
-         * not good for big application
-   
-   * HBS framework
-      * Pros:
-         * provides a way to do both backend and frontend development
-      * Cons:
-         * not good for big application
-   
-   * Stipe
-      * Pros:
-         * provides a way to be able to test your paymnent
-      * Cons:
-         * very complex to implement on Vue Js
 
 * FRONTEND
    * Vue js
@@ -174,6 +156,15 @@ Live link to my Web Application -->
 
    * Google fonts and Font awesome
       * these two libraries were used for my fonts and icons. They have cool fonts and icons.
+
+   * Express framework
+      * provides a thin layer of fundamental web application features
+   
+   * HBS framework
+      * helps to develop an application that connects backend and frontend
+   
+   * Stripe
+      * used this dependency to be able to test my payment feature
 
 
 ### FUNCTIONAL AND NON FUNCTIONAL REQUIREMENTS
