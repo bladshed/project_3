@@ -485,6 +485,7 @@ BASE URL: https://project-3-hbs.herokuapp.com
 
 ### CREDITS
 * Thanks to Mr Paul Chor, our teacher for Node js, Express and Vue js
-   * [positronx](https://www.positronx.io/how-to-add-and-use-bootstrap-modal-in-vue-js-app/)
-* For my code snippets, tutorial, questions and saviour of all developers
+* Thanks to Neelima for the Algo lessons that helped my application to be more efficient
+* Thanks to Shun and Alex for helping me to finish my Vue js app
+* For my code snippets, tutorial, questions and images souces came from Google
    * [Google](https://www.google.com/)
