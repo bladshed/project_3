@@ -164,7 +164,7 @@ Live link to my Web Application -->
       * helps to develop an application that connects backend and frontend
    
    * bookshelf
-      * acts as ORM, helps to convert javascript to db script to communicate to database
+      * serves as ORM, helps to convert javascript to db script to communicate to database
    
    * Stripe
       * used this dependency to be able to test my payment feature
