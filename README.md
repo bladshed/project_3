@@ -374,6 +374,10 @@ BASE URL: https://project-3-hbs.herokuapp.com
       <td>Modified quantity</td>
    </tr>
    <tr>
+      <td>[USER] Checkout cart items</td>
+      <td>Redirects to Stripe payment</td>
+   </tr>
+   <tr>
       <td>[ADMIN] Do all things a user can do</td>
       <td>Can do what a user can do</td>
    </tr>
