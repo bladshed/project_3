@@ -83,11 +83,11 @@ Live link to my Web Application -->
 ## TECHNICAL
 
 ### Understanding of the business problem
-* I need to have a database for storing data
+* I need to have a database for sneaker market web app
 * Build a search engine that returns only what is relevant
 * To allow admin to do CRUD for a sneaker
 * To allow user to view sneakers
-* To allow to upload a photo of the sneaker
+* To allow admin to upload a photo of the sneaker
 * To allow Stipe checkout
 
 ### UI/UX
