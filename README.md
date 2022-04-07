@@ -157,11 +157,14 @@ Live link to my Web Application -->
    * Google fonts and Font awesome
       * these two libraries were used for my fonts and icons. They have cool fonts and icons.
 
-   * Express framework
+   * Express
       * provides a thin layer of fundamental web application features
    
-   * HBS framework
+   * HBS
       * helps to develop an application that connects backend and frontend
+   
+   * bookshelf
+      * acts as ORM, helps to convert javascript to db script to communicate to database
    
    * Stripe
       * used this dependency to be able to test my payment feature
