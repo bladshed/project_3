@@ -114,14 +114,14 @@ Live link to my Web Application -->
          * security
          * data is consistent
       * Cons:
-         * heavy
+         * designing the db is more complex than MongoDB
          * slower
    
    * Cloudinary
       * Pros:
          * provides a way to upload your images
       * Cons:
-         * not api to call to delete change the previous images or delete your images
+         * no api to call to change the previous images or delete your images
 
 * BACKEND
    * Node js
