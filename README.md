@@ -358,6 +358,10 @@ BASE URL: https://project-3-hbs.herokuapp.com
       <td>View all Sneakers</td>
    </tr>
    <tr>
+      <td>[USER] Search sneakers (based on filter)</td>
+      <td>Show filtered Sneaker list</td>
+   </tr>
+   <tr>
       <td>[USER] Add to cart</td>
       <td>Added to cart</td>
    </tr>
